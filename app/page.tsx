@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { sdk } from '@farcaster/frame-sdk';
 
 interface FarcasterUser {
   fid: number;
@@ -19,6 +20,21 @@ export default function WarpRoulette() {
   const [isSpinning, setIsSpinning] = useState(false);
   const [canSpin, setCanSpin] = useState(true);
   const [timeUntilNextSpin, setTimeUntilNextSpin] = useState<string>('');
+
+  // Initialize Farcaster Frame SDK
+  useEffect(() => {
+    const initFrame = async () => {
+      try {
+        const context = await sdk.context;
+        console.log('Frame context:', context);
+        sdk.actions.ready();
+      } catch (error) {
+        console.error('Frame SDK initialization error:', error);
+      }
+    };
+
+    initFrame();
+  }, []);
 
   // Check if user can spin
   useEffect(() => {
@@ -101,10 +117,19 @@ export default function WarpRoulette() {
       const response = await fetch(`/api/random-user?fid=${randomFid}`);
       
       if (!response.ok) {
-        return getRandomUser();
+        // Limite à 3 tentatives pour éviter la boucle infinie
+        const retryCount = parseInt(sessionStorage.getItem('retryCount') || '0');
+        if (retryCount < 3) {
+          sessionStorage.setItem('retryCount', (retryCount + 1).toString());
+          return getRandomUser();
+        } else {
+          sessionStorage.setItem('retryCount', '0');
+          throw new Error('Max retries reached');
+        }
       }
 
       const data = await response.json();
+      sessionStorage.setItem('retryCount', '0');
       
       // Apparition instantanée - pas de délai
       setCurrentUser(data);
@@ -113,9 +138,12 @@ export default function WarpRoulette() {
       
     } catch (error) {
       console.error('Error fetching random user:', error);
-      getRandomUser();
-    } finally {
       setLoading(false);
+      setIsSpinning(false);
+      // Réactive le bouton en cas d'erreur
+      localStorage.removeItem('lastSpinTime');
+      setCanSpin(true);
+      alert('Unable to fetch user. Please try again.');
     }
   };
 
