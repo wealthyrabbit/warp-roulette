@@ -31,6 +31,7 @@ export const minikitConfig = {
     ogTitle: "",
     ogDescription: "",
     ogImageUrl: `${ROOT_URL}/logo.png`,
+    noindex: false,
   },
 } as const;
 
