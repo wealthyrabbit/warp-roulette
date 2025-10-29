@@ -100,9 +100,10 @@ export default function WarpRoulette() {
       
     } catch (error) {
       console.error('Error fetching random user:', error);
-      setLoading(false);
       setIsSpinning(false);
       alert('Unable to fetch user. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
