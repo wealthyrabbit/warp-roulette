@@ -163,7 +163,7 @@ export default function WarpRoulette() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '16px',
+        padding: '12px',
         fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
         position: 'relative',
         overflow: 'hidden'
@@ -171,56 +171,57 @@ export default function WarpRoulette() {
         {/* Decorative circles */}
         <div style={{
           position: 'absolute',
-          width: '300px',
-          height: '300px',
+          width: '200px',
+          height: '200px',
           borderRadius: '50%',
           background: 'radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%)',
-          top: '-150px',
-          left: '-150px',
+          top: '-100px',
+          left: '-100px',
           pointerEvents: 'none'
         }} />
         <div style={{
           position: 'absolute',
-          width: '250px',
-          height: '250px',
+          width: '200px',
+          height: '200px',
           borderRadius: '50%',
           background: 'radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%)',
-          bottom: '-125px',
-          right: '-125px',
+          bottom: '-100px',
+          right: '-100px',
           pointerEvents: 'none'
         }} />
 
-        <div style={{ maxWidth: '500px', width: '100%', position: 'relative', zIndex: 1 }}>
+        <div style={{ maxWidth: '400px', width: '100%', position: 'relative', zIndex: 1 }}>
           
           {/* Header */}
           {!currentUser && (
-            <div style={{ textAlign: 'center', marginBottom: '50px' }}>
+            <div style={{ textAlign: 'center', marginBottom: '32px' }}>
               <div style={{ 
-                fontSize: '100px', 
-                marginBottom: '20px',
+                fontSize: 'clamp(60px, 15vw, 80px)', 
+                marginBottom: '16px',
                 filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.3))'
               }}>
                 🎰
               </div>
               <h1 style={{
-                fontSize: '72px',
+                fontSize: 'clamp(36px, 10vw, 56px)',
                 fontWeight: '900',
                 background: 'linear-gradient(135deg, #fff 0%, #f0f0f0 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
-                marginBottom: '15px',
-                margin: '0 0 15px 0',
-                letterSpacing: '-2px',
+                marginBottom: '12px',
+                margin: '0 0 12px 0',
+                letterSpacing: '-1px',
                 textShadow: '0 4px 20px rgba(0,0,0,0.3)'
               }}>
                 WARP ROULETTE
               </h1>
               <p style={{
-                fontSize: '22px',
+                fontSize: 'clamp(14px, 4vw, 18px)',
                 color: 'rgba(255,255,255,0.95)',
                 fontWeight: '600',
                 margin: 0,
-                textShadow: '0 2px 10px rgba(0,0,0,0.2)'
+                textShadow: '0 2px 10px rgba(0,0,0,0.2)',
+                padding: '0 16px'
               }}>
                 Discover random Farcaster profiles
               </p>
@@ -236,14 +237,14 @@ export default function WarpRoulette() {
                 className={loading ? '' : 'pulse'}
                 style={{
                   width: '100%',
-                  padding: '30px',
+                  padding: 'clamp(20px, 5vw, 30px)',
                   background: loading
                     ? 'linear-gradient(135deg, #a0a0a0 0%, #808080 100%)'
                     : 'linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%)',
                   color: loading ? '#fff' : '#667eea',
                   fontWeight: '900',
-                  fontSize: '32px',
-                  borderRadius: '25px',
+                  fontSize: 'clamp(20px, 5vw, 28px)',
+                  borderRadius: '20px',
                   border: 'none',
                   cursor: loading ? 'not-allowed' : 'pointer',
                   boxShadow: loading
@@ -277,8 +278,8 @@ export default function WarpRoulette() {
               style={{
                 background: 'linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.9) 100%)',
                 backdropFilter: 'blur(20px)',
-                borderRadius: '30px',
-                padding: '40px',
+                borderRadius: '24px',
+                padding: 'clamp(20px, 5vw, 32px)',
                 boxShadow: '0 25px 60px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.8)',
                 border: '2px solid rgba(255,255,255,0.5)',
                 position: 'relative',
@@ -287,14 +288,14 @@ export default function WarpRoulette() {
             >
 
               {/* Profile Section */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '25px', marginBottom: '30px' }}>
-                <div style={{ position: 'relative' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(16px, 4vw, 25px)', marginBottom: 'clamp(20px, 4vw, 30px)', flexWrap: 'wrap' }}>
+                <div style={{ position: 'relative', flexShrink: 0 }}>
                   <div style={{
-                    width: '110px',
-                    height: '110px',
+                    width: 'clamp(80px, 20vw, 100px)',
+                    height: 'clamp(80px, 20vw, 100px)',
                     borderRadius: '50%',
                     overflow: 'hidden',
-                    border: '5px solid transparent',
+                    border: '4px solid transparent',
                     background: 'linear-gradient(135deg, #667eea, #764ba2)',
                     padding: '3px',
                     boxShadow: '0 8px 20px rgba(102, 126, 234, 0.4)'
@@ -309,26 +310,27 @@ export default function WarpRoulette() {
                       <Image
                         src={currentUser.pfpUrl || '/default-avatar.png'}
                         alt={currentUser.displayName}
-                        width={110}
-                        height={110}
+                        width={100}
+                        height={100}
                         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                       />
                     </div>
                   </div>
                 </div>
 
-                <div style={{ flex: 1 }}>
+                <div style={{ flex: 1, minWidth: 0 }}>
                   <h2 style={{
-                    fontSize: '36px',
+                    fontSize: 'clamp(24px, 6vw, 32px)',
                     fontWeight: '800',
                     background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text',
-                    marginBottom: '8px',
-                    margin: '0 0 8px 0',
-                    letterSpacing: '-1px',
-                    filter: 'none'
+                    marginBottom: '6px',
+                    margin: '0 0 6px 0',
+                    letterSpacing: '-0.5px',
+                    filter: 'none',
+                    wordBreak: 'break-word'
                   }}>
                     <span style={{ 
                       background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
@@ -341,10 +343,11 @@ export default function WarpRoulette() {
                   </h2>
                   <p style={{
                     color: '#667eea',
-                    fontSize: '20px',
+                    fontSize: 'clamp(14px, 4vw, 18px)',
                     fontWeight: '700',
                     marginBottom: '6px',
-                    margin: '0 0 6px 0'
+                    margin: '0 0 6px 0',
+                    wordBreak: 'break-all'
                   }}>
                     @{currentUser.username}
                   </p>
@@ -352,9 +355,9 @@ export default function WarpRoulette() {
                     display: 'inline-block',
                     background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
                     color: 'white',
-                    padding: '4px 12px',
-                    borderRadius: '20px',
-                    fontSize: '13px',
+                    padding: '4px 10px',
+                    borderRadius: '16px',
+                    fontSize: 'clamp(11px, 3vw, 13px)',
                     fontWeight: '700',
                     boxShadow: '0 2px 8px rgba(240, 147, 251, 0.3)'
                   }}>
@@ -366,18 +369,19 @@ export default function WarpRoulette() {
               {/* Bio */}
               <div style={{
                 background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%)',
-                borderRadius: '18px',
-                padding: '22px',
-                marginBottom: '30px',
+                borderRadius: '16px',
+                padding: 'clamp(16px, 4vw, 20px)',
+                marginBottom: 'clamp(20px, 4vw, 26px)',
                 border: '2px solid rgba(102, 126, 234, 0.1)',
                 backdropFilter: 'blur(10px)'
               }}>
                 <p style={{
                   color: '#374151',
-                  fontSize: '15px',
-                  lineHeight: '1.7',
+                  fontSize: 'clamp(13px, 3.5vw, 15px)',
+                  lineHeight: '1.6',
                   margin: 0,
-                  fontWeight: '500'
+                  fontWeight: '500',
+                  wordBreak: 'break-word'
                 }}>
                   {currentUser.bio || 'No bio available'}
                 </p>
@@ -387,13 +391,13 @@ export default function WarpRoulette() {
               <div style={{
                 display: 'grid',
                 gridTemplateColumns: '1fr 1fr',
-                gap: '18px',
-                marginBottom: '30px'
+                gap: 'clamp(12px, 3vw, 16px)',
+                marginBottom: 'clamp(20px, 4vw, 26px)'
               }}>
                 <div style={{
                   background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                  borderRadius: '18px',
-                  padding: '25px',
+                  borderRadius: '16px',
+                  padding: 'clamp(16px, 4vw, 22px)',
                   textAlign: 'center',
                   boxShadow: '0 8px 20px rgba(102, 126, 234, 0.3)',
                   border: '2px solid rgba(255,255,255,0.2)',
@@ -409,31 +413,31 @@ export default function WarpRoulette() {
                     background: 'radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%)'
                   }} />
                   <p style={{
-                    fontSize: '38px',
+                    fontSize: 'clamp(28px, 8vw, 34px)',
                     fontWeight: '900',
                     color: 'white',
-                    marginBottom: '6px',
-                    margin: '0 0 6px 0',
+                    marginBottom: '4px',
+                    margin: '0 0 4px 0',
                     position: 'relative'
                   }}>
                     {currentUser.followerCount.toLocaleString()}
                   </p>
                   <p style={{
                     color: 'rgba(255,255,255,0.95)',
-                    fontSize: '15px',
+                    fontSize: 'clamp(12px, 3vw, 14px)',
                     fontWeight: '700',
                     margin: 0,
                     position: 'relative',
                     textTransform: 'uppercase',
-                    letterSpacing: '1px'
+                    letterSpacing: '0.5px'
                   }}>
                     Followers
                   </p>
                 </div>
                 <div style={{
                   background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-                  borderRadius: '18px',
-                  padding: '25px',
+                  borderRadius: '16px',
+                  padding: 'clamp(16px, 4vw, 22px)',
                   textAlign: 'center',
                   boxShadow: '0 8px 20px rgba(240, 147, 251, 0.3)',
                   border: '2px solid rgba(255,255,255,0.2)',
@@ -449,23 +453,23 @@ export default function WarpRoulette() {
                     background: 'radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%)'
                   }} />
                   <p style={{
-                    fontSize: '38px',
+                    fontSize: 'clamp(28px, 8vw, 34px)',
                     fontWeight: '900',
                     color: 'white',
-                    marginBottom: '6px',
-                    margin: '0 0 6px 0',
+                    marginBottom: '4px',
+                    margin: '0 0 4px 0',
                     position: 'relative'
                   }}>
                     {currentUser.followingCount.toLocaleString()}
                   </p>
                   <p style={{
                     color: 'rgba(255,255,255,0.95)',
-                    fontSize: '15px',
+                    fontSize: 'clamp(12px, 3vw, 14px)',
                     fontWeight: '700',
                     margin: 0,
                     position: 'relative',
                     textTransform: 'uppercase',
-                    letterSpacing: '1px'
+                    letterSpacing: '0.5px'
                   }}>
                     Following
                   </p>
@@ -473,25 +477,25 @@ export default function WarpRoulette() {
               </div>
 
               {/* Actions */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(12px, 3vw, 14px)' }}>
                 <a
                   href={`https://warpcast.com/${currentUser.username}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
                     display: 'block',
-                    padding: '18px',
+                    padding: 'clamp(14px, 4vw, 18px)',
                     background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
                     color: 'white',
                     fontWeight: '800',
-                    fontSize: '16px',
+                    fontSize: 'clamp(14px, 4vw, 16px)',
                     textAlign: 'center',
-                    borderRadius: '15px',
+                    borderRadius: '14px',
                     textDecoration: 'none',
                     boxShadow: '0 8px 20px rgba(16, 185, 129, 0.4)',
                     transition: 'none',
                     border: '2px solid rgba(255,255,255,0.2)',
-                    letterSpacing: '0.5px'
+                    letterSpacing: '0.3px'
                   }}
                 >
                   VIEW PROFILE
@@ -501,14 +505,14 @@ export default function WarpRoulette() {
                   onClick={getRandomUser}
                   disabled={loading}
                   style={{
-                    padding: '18px',
+                    padding: 'clamp(14px, 4vw, 18px)',
                     background: loading
                       ? 'linear-gradient(135deg, #a0a0a0 0%, #808080 100%)'
                       : 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
                     color: 'white',
                     fontWeight: '800',
-                    fontSize: '16px',
-                    borderRadius: '15px',
+                    fontSize: 'clamp(14px, 4vw, 16px)',
+                    borderRadius: '14px',
                     border: '2px solid rgba(255,255,255,0.3)',
                     cursor: loading ? 'not-allowed' : 'pointer',
                     boxShadow: loading
@@ -516,7 +520,7 @@ export default function WarpRoulette() {
                       : '0 8px 20px rgba(245, 158, 11, 0.4)',
                     transition: 'none',
                     opacity: loading ? 0.6 : 1,
-                    letterSpacing: '0.5px'
+                    letterSpacing: '0.3px'
                   }}
                 >
                   {loading ? 'SPINNING...' : 'NEXT USER'}
@@ -529,8 +533,9 @@ export default function WarpRoulette() {
           <div style={{
             textAlign: 'center',
             color: 'rgba(255,255,255,0.9)',
-            fontSize: '15px',
-            marginTop: '40px'
+            fontSize: 'clamp(12px, 3vw, 14px)',
+            marginTop: 'clamp(24px, 5vw, 32px)',
+            padding: '0 16px'
           }}>
             <p style={{ 
               fontWeight: '600', 
