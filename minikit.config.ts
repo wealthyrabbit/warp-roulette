@@ -26,11 +26,10 @@ export const minikitConfig = {
     webhookUrl: `${ROOT_URL}/api/webhook`,
     primaryCategory: "social",
     tags: ["friends", "social", "roulette", "casino"],
-    heroImageUrl: `${ROOT_URL}/logo.png`, 
-    tagline: "",
-    ogTitle: "",
-    ogDescription: "",
+    heroImageUrl: `${ROOT_URL}/logo.png`,
+    tagline: "Discover random Farcaster profiles",
+    ogTitle: "Warp Roulette - Discover Farcaster Profiles",
+    ogDescription: "Spin the wheel to discover random Farcaster users and make new friends!",
     ogImageUrl: `${ROOT_URL}/logo.png`,
   },
 } as const;
-
