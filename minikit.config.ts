@@ -8,29 +8,29 @@ const ROOT_URL =
  * @see {@link https://miniapps.farcaster.xyz/docs/guides/publishing}
  */
 export const minikitConfig = {
-  accountAssociation: {
-    header: "",
-    payload: "",
-    signature: ""
+  "accountAssociation": {
+    "header": "eyJmaWQiOjQxMTEyNiwidHlwZSI6ImF1dGgiLCJrZXkiOiIweDY1MGYzYzAwOUJFZDAwRTMzRTM5REUwM2NENEFDQTZlYjM0MGZEOGEifQ",
+    "payload": "eyJkb21haW4iOiJ3YXJwLXJvdWxldHRlLnZlcmNlbC5hcHAifQ",
+    "signature": "tyhqgfb0CqaBIGovIZfqRj4SgtvVsIIjARYkJBrTBc5n6l2uIFcqG6P4CM83EEbcoa00k3pQV+AXi9O4vawhjRw="
   },
   miniapp: {
     version: "1",
-    name: "Cubey", 
-    subtitle: "Your AI Ad Companion", 
-    description: "Ads",
-    screenshotUrls: [`${ROOT_URL}/screenshot-portrait.png`],
-    iconUrl: `${ROOT_URL}/blue-icon.png`,
-    splashImageUrl: `${ROOT_URL}/blue-hero.png`,
+    name: "Warp Roulette", 
+    subtitle: "Discover random profiles", 
+    description: "Spin to make new friends",
+    screenshotUrls: [`${ROOT_URL}/logo.png`],
+    iconUrl: `${ROOT_URL}/logo.png`,
+    splashImageUrl: `${ROOT_URL}/logo.png`,
     splashBackgroundColor: "#000000",
     homeUrl: ROOT_URL,
     webhookUrl: `${ROOT_URL}/api/webhook`,
     primaryCategory: "social",
-    tags: ["marketing", "ads", "quickstart", "waitlist"],
-    heroImageUrl: `${ROOT_URL}/blue-hero.png`, 
+    tags: ["friends", "social", "roulette", "casino"],
+    heroImageUrl: `${ROOT_URL}/logo.png`, 
     tagline: "",
     ogTitle: "",
     ogDescription: "",
-    ogImageUrl: `${ROOT_URL}/blue-hero.png`,
+    ogImageUrl: `${ROOT_URL}/logo.png`,
   },
 } as const;
 
