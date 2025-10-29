@@ -163,7 +163,7 @@ export default function WarpRoulette() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '20px',
+        padding: '16px',
         fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
         position: 'relative',
         overflow: 'hidden'
@@ -171,26 +171,26 @@ export default function WarpRoulette() {
         {/* Decorative circles */}
         <div style={{
           position: 'absolute',
-          width: '500px',
-          height: '500px',
+          width: '300px',
+          height: '300px',
           borderRadius: '50%',
           background: 'radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%)',
-          top: '-250px',
-          left: '-250px',
+          top: '-150px',
+          left: '-150px',
           pointerEvents: 'none'
         }} />
         <div style={{
           position: 'absolute',
-          width: '400px',
-          height: '400px',
+          width: '250px',
+          height: '250px',
           borderRadius: '50%',
           background: 'radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%)',
-          bottom: '-200px',
-          right: '-200px',
+          bottom: '-125px',
+          right: '-125px',
           pointerEvents: 'none'
         }} />
 
-        <div style={{ maxWidth: '650px', width: '100%', position: 'relative', zIndex: 1 }}>
+        <div style={{ maxWidth: '500px', width: '100%', position: 'relative', zIndex: 1 }}>
           
           {/* Header */}
           {!currentUser && (
