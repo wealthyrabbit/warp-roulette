@@ -18,8 +18,6 @@ export default function WarpRoulette() {
   const [currentUser, setCurrentUser] = useState<FarcasterUser | null>(null);
   const [loading, setLoading] = useState(false);
   const [isSpinning, setIsSpinning] = useState(false);
-  const [canSpin, setCanSpin] = useState(true);
-  const [timeUntilNextSpin, setTimeUntilNextSpin] = useState<string>('');
 
   // Initialize Farcaster Frame SDK
   useEffect(() => {
@@ -35,41 +33,6 @@ export default function WarpRoulette() {
 
     initFrame();
   }, []);
-
-  // Check if user can spin
-  useEffect(() => {
-    checkSpinAvailability();
-    const interval = setInterval(checkSpinAvailability, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const checkSpinAvailability = () => {
-    try {
-      const lastSpinTime = sessionStorage.getItem('lastSpinTime');
-      if (!lastSpinTime) {
-        setCanSpin(true);
-        setTimeUntilNextSpin('');
-        return;
-      }
-
-      const lastSpin = new Date(parseInt(lastSpinTime));
-      const now = new Date();
-      const nextSpinTime = new Date(lastSpin.getTime() + 15 * 1000); // 15 seconds
-
-      if (now >= nextSpinTime) {
-        setCanSpin(true);
-        setTimeUntilNextSpin('');
-      } else {
-        setCanSpin(false);
-        const diff = nextSpinTime.getTime() - now.getTime();
-        const seconds = Math.ceil(diff / 1000);
-        setTimeUntilNextSpin(`${seconds}s`);
-      }
-    } catch (error) {
-      console.error('Storage error:', error);
-      setCanSpin(true);
-    }
-  };
 
   // Sound effects
   const playSound = (type: 'spin' | 'reveal') => {
@@ -101,8 +64,6 @@ export default function WarpRoulette() {
   };
 
   const getRandomUser = async () => {
-    if (!canSpin) return;
-
     setLoading(true);
     setIsSpinning(true);
     
@@ -112,14 +73,6 @@ export default function WarpRoulette() {
     }
     
     playSound('spin');
-
-    // Save spin time
-    try {
-      sessionStorage.setItem('lastSpinTime', Date.now().toString());
-      setCanSpin(false);
-    } catch (error) {
-      console.error('Storage error:', error);
-    }
 
     try {
       const randomFid = Math.floor(Math.random() * 500000) + 1;
@@ -149,13 +102,6 @@ export default function WarpRoulette() {
       console.error('Error fetching random user:', error);
       setLoading(false);
       setIsSpinning(false);
-      // Réactive le bouton en cas d'erreur
-      try {
-        sessionStorage.removeItem('lastSpinTime');
-      } catch (e) {
-        console.error('Storage error:', e);
-      }
-      setCanSpin(true);
       alert('Unable to fetch user. Please try again.');
     }
   };
@@ -285,21 +231,21 @@ export default function WarpRoulette() {
             <div>
               <button
                 onClick={getRandomUser}
-                disabled={loading || !canSpin}
-                className={loading || !canSpin ? '' : 'pulse'}
+                disabled={loading}
+                className={loading ? '' : 'pulse'}
                 style={{
                   width: '100%',
                   padding: '30px',
-                  background: (loading || !canSpin)
+                  background: loading
                     ? 'linear-gradient(135deg, #a0a0a0 0%, #808080 100%)'
                     : 'linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%)',
-                  color: (loading || !canSpin) ? '#fff' : '#667eea',
+                  color: loading ? '#fff' : '#667eea',
                   fontWeight: '900',
                   fontSize: '32px',
                   borderRadius: '25px',
                   border: 'none',
-                  cursor: (loading || !canSpin) ? 'not-allowed' : 'pointer',
-                  boxShadow: (loading || !canSpin)
+                  cursor: loading ? 'not-allowed' : 'pointer',
+                  boxShadow: loading
                     ? '0 10px 30px rgba(0,0,0,0.3)'
                     : '0 20px 50px rgba(255,255,255,0.3), inset 0 1px 0 rgba(255,255,255,0.8)',
                   transition: 'none',
@@ -317,7 +263,7 @@ export default function WarpRoulette() {
                   }} />
                 )}
                 <span style={{ position: 'relative', zIndex: 1 }}>
-                  {loading ? 'SPINNING...' : !canSpin ? `NEXT SPIN IN ${timeUntilNextSpin}` : 'SPIN THE WHEEL'}
+                  {loading ? 'SPINNING...' : 'SPIN THE WHEEL'}
                 </span>
               </button>
             </div>
@@ -552,10 +498,10 @@ export default function WarpRoulette() {
                 
                 <button
                   onClick={getRandomUser}
-                  disabled={loading || !canSpin}
+                  disabled={loading}
                   style={{
                     padding: '18px',
-                    background: (loading || !canSpin)
+                    background: loading
                       ? 'linear-gradient(135deg, #a0a0a0 0%, #808080 100%)'
                       : 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
                     color: 'white',
@@ -563,16 +509,16 @@ export default function WarpRoulette() {
                     fontSize: '16px',
                     borderRadius: '15px',
                     border: '2px solid rgba(255,255,255,0.3)',
-                    cursor: (loading || !canSpin) ? 'not-allowed' : 'pointer',
-                    boxShadow: (loading || !canSpin)
+                    cursor: loading ? 'not-allowed' : 'pointer',
+                    boxShadow: loading
                       ? '0 8px 20px rgba(0,0,0,0.2)'
                       : '0 8px 20px rgba(245, 158, 11, 0.4)',
                     transition: 'none',
-                    opacity: (loading || !canSpin) ? 0.6 : 1,
+                    opacity: loading ? 0.6 : 1,
                     letterSpacing: '0.5px'
                   }}
                 >
-                  {loading ? 'SPINNING...' : !canSpin ? `NEXT SPIN IN ${timeUntilNextSpin}` : 'NEXT USER'}
+                  {loading ? 'SPINNING...' : 'NEXT USER'}
                 </button>
               </div>
             </div>
