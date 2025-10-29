@@ -17,7 +17,7 @@ export const minikitConfig = {
     version: "1",
     name: "Warp Roulette", 
     subtitle: "Discover random profiles", 
-    description: "Spin to make new friends",
+    description: "Spin to make new friends!",
     screenshotUrls: [`${ROOT_URL}/logo.png`],
     iconUrl: `${ROOT_URL}/logo.png`,
     splashImageUrl: `${ROOT_URL}/logo.png`,
