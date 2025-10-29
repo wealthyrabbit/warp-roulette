@@ -44,25 +44,30 @@ export default function WarpRoulette() {
   }, []);
 
   const checkSpinAvailability = () => {
-    const lastSpinTime = localStorage.getItem('lastSpinTime');
-    if (!lastSpinTime) {
-      setCanSpin(true);
-      setTimeUntilNextSpin('');
-      return;
-    }
+    try {
+      const lastSpinTime = sessionStorage.getItem('lastSpinTime');
+      if (!lastSpinTime) {
+        setCanSpin(true);
+        setTimeUntilNextSpin('');
+        return;
+      }
 
-    const lastSpin = new Date(parseInt(lastSpinTime));
-    const now = new Date();
-    const nextSpinTime = new Date(lastSpin.getTime() + 15 * 1000); // 15 seconds
+      const lastSpin = new Date(parseInt(lastSpinTime));
+      const now = new Date();
+      const nextSpinTime = new Date(lastSpin.getTime() + 15 * 1000); // 15 seconds
 
-    if (now >= nextSpinTime) {
+      if (now >= nextSpinTime) {
+        setCanSpin(true);
+        setTimeUntilNextSpin('');
+      } else {
+        setCanSpin(false);
+        const diff = nextSpinTime.getTime() - now.getTime();
+        const seconds = Math.ceil(diff / 1000);
+        setTimeUntilNextSpin(`${seconds}s`);
+      }
+    } catch (error) {
+      console.error('Storage error:', error);
       setCanSpin(true);
-      setTimeUntilNextSpin('');
-    } else {
-      setCanSpin(false);
-      const diff = nextSpinTime.getTime() - now.getTime();
-      const seconds = Math.ceil(diff / 1000);
-      setTimeUntilNextSpin(`${seconds}s`);
     }
   };
 
@@ -109,8 +114,12 @@ export default function WarpRoulette() {
     playSound('spin');
 
     // Save spin time
-    localStorage.setItem('lastSpinTime', Date.now().toString());
-    setCanSpin(false);
+    try {
+      sessionStorage.setItem('lastSpinTime', Date.now().toString());
+      setCanSpin(false);
+    } catch (error) {
+      console.error('Storage error:', error);
+    }
 
     try {
       const randomFid = Math.floor(Math.random() * 500000) + 1;
@@ -141,7 +150,11 @@ export default function WarpRoulette() {
       setLoading(false);
       setIsSpinning(false);
       // Réactive le bouton en cas d'erreur
-      localStorage.removeItem('lastSpinTime');
+      try {
+        sessionStorage.removeItem('lastSpinTime');
+      } catch (e) {
+        console.error('Storage error:', e);
+      }
       setCanSpin(true);
       alert('Unable to fetch user. Please try again.');
     }
